@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="./colorPicker.css">
+  <script src="./colorPicker.js"></script>
+  <style>
+    #block {
+      position: absolute;
+      top: 500px;
+      width: 100px;
+      height: 100px;
+      background-color: hsl(88, 100%, 50%);
+    }
+  </style>
+</head>
+<body>
+  <div id="test"></div>
+  <div id="block"></div>
+  <div id="colorPicker"></div>
+</body>
+
+<script src="./base64.js"></script>
+<script>
+  let node = document.getElementById('test');
+  let colorPicker = new ColorPicker(node, {
+    width: 400
+  });
+  let block = document.querySelector('#block');
+  let event = document.createEvent('HTMLEvents');
+  event.initEvent('hello', false, true);
+  block.addEventListener('hello', function (e) {
+    console.log('hello');
+  });
+  block.dispatchEvent(event);
+  node.addEventListener('change', function (e) {
+    block.style.backgroundColor = e.detail;
+  })
+
+  let test = document.querySelector('#colorPicker');
+  let a = new ColorPicker(test);
+  a.register(function (e) {
+    block.style.backgroundColor = e;
+  })
+</script>
+</html>
